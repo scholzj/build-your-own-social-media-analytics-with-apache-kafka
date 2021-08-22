@@ -30,12 +30,12 @@ spec:
         tls: true
         authentication:
           type: tls
-      # - name: external
-      #   port: 9094
-      #   type: nodeport
-      #   tls: true
-      #   authentication:
-      #     type: tls
+      - name: external
+        port: 9094
+        type: nodeport
+        tls: true
+        authentication:
+          type: tls
     authorization:
       type: simple
     config:
