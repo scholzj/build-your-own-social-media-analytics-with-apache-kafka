@@ -36,8 +36,14 @@ spec:
         tls: true
         authentication:
           type: tls
+      - name: anonymous
+        port: 9095
+        type: nodeport
+        tls: false
     authorization:
       type: simple
+      superUsers:
+        - ANONYMOUS
     config:
       auto.create.topics.enable: "false"
       offsets.topic.replication.factor: 3

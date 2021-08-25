@@ -1,0 +1,47 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: strimzi-search
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  partitions: 1
+  replicas: 3
+  config:
+    retention.ms: 7200000
+    segment.bytes: 107374182
+---
+
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: strimzi-twitter-serch
+  labels:
+    strimzi.io/cluster: my-connect
+spec:
+  class: CamelTwittersearchSourceConnector
+  tasksMax: 1
+  config:
+    topics: strimzi-search
+    camel.source.path.keywords: "#AVFC OR \"Aston Villa\""
+    # Twitter account
+    camel.source.endpoint.consumerKey: ${env:TWITTER_CONSUMER_KEY}
+    camel.source.endpoint.consumerSecret: ${env:TWITTER_CONSUMER_SECRET}
+    camel.source.endpoint.accessToken: ${env:TWITTER_ACCESS_TOKEN}
+    camel.source.endpoint.accessTokenSecret: ${env:TWITTER_ACCESS_TOKEN_SECRET}
+    # Converting
+    camel.source.marshal: json-jackson
+    key.converter: org.apache.kafka.connect.storage.StringConverter
+    value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+    key.converter.schemas.enable: false
+    value.converter.schemas.enable: false
+    # Transformation
+    # transforms: HoistField,InsertField,ReplaceField
+    # transforms.HoistField.type: org.apache.kafka.connect.transforms.HoistField$Value
+    # transforms.HoistField.field: originalValue
+    # transforms.InsertField.type: org.apache.kafka.connect.transforms.InsertField$Value
+    # transforms.InsertField.timestamp.field: timestamp
+    # transforms.InsertField.static.field: message
+    # transforms.InsertField.static.value: "Hello World"
+    # transforms.ReplaceField.type: org.apache.kafka.connect.transforms.ReplaceField$Value
+    # transforms.ReplaceField.blacklist: originalValue
