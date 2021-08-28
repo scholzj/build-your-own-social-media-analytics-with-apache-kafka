@@ -44,7 +44,7 @@ spec:
     transforms.HoistField.type: org.apache.kafka.connect.transforms.HoistField$Key
     transforms.HoistField.field: originalValue
     transforms.InsertField.type: org.apache.kafka.connect.transforms.InsertField$Key
-    transforms.InsertField.static.field: type
+    transforms.InsertField.static.field: timeline
     transforms.InsertField.static.value: scholzj
     transforms.ReplaceField.type: org.apache.kafka.connect.transforms.ReplaceField$Key
     transforms.ReplaceField.blacklist: originalValue

@@ -1,28 +1,28 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: strimzi-search
+  name: avfc-search
   labels:
     strimzi.io/cluster: my-cluster
 spec:
   partitions: 1
   replicas: 3
   config:
-    retention.ms: 7200000
+    retention.ms: 72000000
     segment.bytes: 107374182
 ---
 
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnector
 metadata:
-  name: strimzi-twitter-serch
+  name: avfc-search
   labels:
     strimzi.io/cluster: my-connect
 spec:
   class: CamelTwittersearchSourceConnector
   tasksMax: 1
   config:
-    topics: strimzi-search
+    topics: avfc-search
     camel.source.path.keywords: "#AVFC OR \"Aston Villa\""
     # Twitter account
     camel.source.endpoint.consumerKey: ${env:TWITTER_CONSUMER_KEY}

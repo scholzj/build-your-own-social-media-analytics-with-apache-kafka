@@ -89,6 +89,10 @@ spec:
           type: topic
           name: strimzi-search
         operation: Write
+      - resource:
+          type: topic
+          name: avfc-search
+        operation: Write
       # - resource:
       #     type: topic
       #     name: telegram-topic
