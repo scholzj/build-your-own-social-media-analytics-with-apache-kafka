@@ -8,7 +8,7 @@ spec:
   partitions: 1
   replicas: 3
   config:
-    retention.ms: 72000000
+    retention.ms: 2629800000
     segment.bytes: 107374182
 ---
 
