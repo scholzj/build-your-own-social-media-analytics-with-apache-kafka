@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Word Cloud</title>
+        <meta charset="utf-8">
+        <!--<script src='https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js'></script>-->
+        <script src='webjars/echarts/echarts.min.js'></script>
+        <script src='echarts-wordcloud/echarts-wordcloud.min.js'></script>
+    </head>
+    <body>
+        <style>
+            html, body, #main {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+            }
+        </style>
+        <div id='main'></div>
+        <script>
+            refreshData = async () => {
+                    var data = [];    
+                    const response = await fetch('api/top/50/');
+                    const keywords = await response.json()
+                    
+                    for (var name in keywords) {
+                        data.push({
+                            name: name,
+                            value: Math.sqrt(keywords[name])
+                        })
+                    }
+                    
+                    option.series[0].data = data.sort(function (a, b) {
+                            return b.value  - a.value;
+                        })
+
+                    chart.setOption(option);
+                }
+
+            var chart = echarts.init(document.getElementById('main'));
+
+            var option = {
+                series: [ {
+                    type: 'wordCloud',
+                    sizeRange: [30, 300],
+                    rotationRange: [0, 0],
+                    rotationStep: 0,
+                    //rotationRange: [-90, 90],
+                    //rotationStep: 45,
+                    gridSize: 2,
+                    shape: 'circle',
+                    // width: 1000,
+                    // height: 1000,
+                    //maskImage: maskImage,
+                    drawOutOfBound: true,
+                    textStyle: {
+                        color: 'rbg(160,160,160)'
+                    },
+                    // textStyle: {
+                    //     color: function () {
+                    //         return 'rgb(' + [
+                    //             Math.round(Math.random() * 160),
+                    //             Math.round(Math.random() * 160),
+                    //             Math.round(Math.random() * 160)
+                    //         ].join(',') + ')';
+                    //     }
+                    // },
+                    emphasis: {
+                        textStyle: {
+                            color: 'red'
+                        }
+                    },
+                    data: []
+                } ]
+            };
+
+            var refresh = setInterval(function() {
+                refreshData()
+            }, 60000);
+
+            refreshData()
+
+            window.onresize = function () {
+                chart.resize();
+            }
+
+        </script>
+    </body>
+</html>
