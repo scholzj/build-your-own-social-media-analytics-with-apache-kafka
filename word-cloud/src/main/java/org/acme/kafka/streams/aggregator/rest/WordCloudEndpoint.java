@@ -2,7 +2,6 @@ package org.acme.kafka.streams.aggregator.rest;
 
 import org.acme.kafka.streams.aggregator.streams.InteractiveQueries;
 import org.acme.kafka.streams.aggregator.streams.PipelineMetadata;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -26,20 +25,37 @@ public class WordCloudEndpoint {
     int sslPort;*/
 
     @GET
-    @Path("/top/{count}")
+    @Path("/all-time/top/{count}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTopWords(@PathParam("count") int count) {
-        Map<String, Long> result = interactiveQueries.getAllTimeHigh(count);
+    public Response getAllTimeTopWords(@PathParam("count") int count) {
+        Map<String, Long> result = interactiveQueries.getAllTimeHighest(count);
 
         return Response.ok(result).build();
     }
 
     @GET
-    @Path("/meta-data")
+    @Path("/all-time/meta-data")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PipelineMetadata> getAllTimeMetaData() {
+        return interactiveQueries.getAllTimeMetaData();
+    }
+
+    @GET
+    @Path("/latest/top/{count}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLatestTopWords(@PathParam("count") int count) {
+        Map<String, Long> result = interactiveQueries.getLatestHighest(count);
+
+        return Response.ok(result).build();
+    }
+
+    @GET
+    @Path("/latest/meta-data")
     @Produces(MediaType.APPLICATION_JSON)
     public List<PipelineMetadata> getMetaData() {
-        return interactiveQueries.getMetaData();
+        return interactiveQueries.getLatestMetaData();
     }
 
     /*private URI getOtherUri(String host, int port, int id) {

@@ -22,9 +22,9 @@
 
     <body>
         <div id="links">
-            <strong>[All-Time]</strong>
+            <a href="./">[All-Time]</a>
             <a href="./static.html">[All-Time (Static)]</a>
-            <a href="./latest.html">[Latest]</a>
+            <strong>[Latest]</strong>
             <a href="./latest-static.html">[Latest (Static)]</a>
         </div>
 
@@ -33,13 +33,15 @@
         <script>
             refreshData = async () => {
                     const data = [];
-                    const response = await fetch('api/all-time/top/50/');
+                    const response = await fetch('api/latest/top/50/');
                     const keywords = await response.json()
                     
                     for (const name in keywords) {
                         data.push({
                             name: name,
-                            value: Math.sqrt(keywords[name])
+                            //value: keywords[name]
+                            //value: Math.sqrt(keywords[name])
+                            value: keywords[name] * keywords[name]
                         })
                     }
                     
