@@ -1,0 +1,19 @@
+DOCKERFILE     	   ?= src/main/docker/Dockerfile.native-distroless
+DOCKER_REGISTRY    ?= ghcr.io
+DOCKER_ORG         ?= $(USER)
+DOCKER_TAG         ?= latest
+DOCKER_VERSION_ARG ?= 1.0.0-SNAPSHOT
+
+all: docker_build docker_push
+
+docker_build:
+	echo "Building Docker image ..."
+	docker build --build-arg version=$(DOCKER_VERSION_ARG) -t $(PROJECT_NAME):$(DOCKER_TAG) -f $(DOCKERFILE) .
+
+docker_tag:
+	echo "Tagging $(PROJECT_NAME):$(DOCKER_TAG) to $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(PROJECT_NAME):$(DOCKER_TAG) ..."
+	docker tag $(PROJECT_NAME):$(DOCKER_TAG) $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(PROJECT_NAME):$(DOCKER_TAG)
+
+docker_push: docker_tag
+	echo "Pushing $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(PROJECT_NAME):$(DOCKER_TAG) ..."
+	docker push $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(PROJECT_NAME):$(DOCKER_TAG)
