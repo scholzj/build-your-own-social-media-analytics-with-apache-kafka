@@ -1,4 +1,4 @@
-package org.acme.kafka.streams.aggregator.model;
+package cz.scholz.wordcloud.model;
 
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;

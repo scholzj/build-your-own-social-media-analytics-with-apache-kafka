@@ -1,4 +1,4 @@
-package org.acme.kafka.streams.aggregator.streams;
+package cz.scholz.wordcloud.streams;
 
 import java.util.List;
 import java.util.Map;

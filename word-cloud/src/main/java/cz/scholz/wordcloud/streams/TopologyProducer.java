@@ -1,8 +1,8 @@
-package org.acme.kafka.streams.aggregator.streams;
+package cz.scholz.wordcloud.streams;
 
 import io.quarkus.kafka.client.serialization.ObjectMapperSerde;
-import org.acme.kafka.streams.aggregator.model.TimelineKey;
-import org.acme.kafka.streams.aggregator.model.TwitterStatusSerde;
+import cz.scholz.wordcloud.model.TimelineKey;
+import cz.scholz.wordcloud.model.TwitterStatusSerde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
@@ -14,6 +14,7 @@ import org.apache.kafka.streams.kstream.Suppressed;
 import org.apache.kafka.streams.kstream.TimeWindows;
 import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
 import org.apache.kafka.streams.state.Stores;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -28,6 +29,9 @@ public class TopologyProducer {
     static final String WORD_CLOUD_STORE = "word-cloud-store";
     static final String LATEST_WORD_CLOUD_STORE = "latest-word-cloud-store";
 
+    @ConfigProperty(name = "quarkus.kafka-streams.topics")
+    String tweetsTopic;
+
     @Produces
     public Topology buildTopology() {
         final TwitterStatusSerde twitterStatusSerde = new TwitterStatusSerde();
@@ -38,7 +42,7 @@ public class TopologyProducer {
         //final WindowBytesStoreSupplier latestStoreSupplier = Stores.persistentTimestampedWindowStore(WINDOWED_WORD_CLOUD_STORE, Duration.ofDays(1), Duration.ofHours(1), false);
         final StreamsBuilder builder = new StreamsBuilder();
 
-        final KGroupedStream<String, String> groupedByWord = builder.stream(TWEETS_TOPIC, Consumed.with(timelineKeySerde, twitterStatusSerde))
+        final KGroupedStream<String, String> groupedByWord = builder.stream(tweetsTopic, Consumed.with(Serdes.ByteArray(), twitterStatusSerde))
                 .flatMapValues(value -> {
                     if (value.isRetweet())  {
                         return List.of(value.getRetweetedStatus().getText());

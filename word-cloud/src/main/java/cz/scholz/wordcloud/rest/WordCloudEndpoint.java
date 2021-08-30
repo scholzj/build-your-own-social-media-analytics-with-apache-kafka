@@ -1,7 +1,7 @@
-package org.acme.kafka.streams.aggregator.rest;
+package cz.scholz.wordcloud.rest;
 
-import org.acme.kafka.streams.aggregator.streams.InteractiveQueries;
-import org.acme.kafka.streams.aggregator.streams.PipelineMetadata;
+import cz.scholz.wordcloud.streams.PipelineMetadata;
+import cz.scholz.wordcloud.streams.InteractiveQueries;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
