@@ -21,9 +21,6 @@ public class WordCloudEndpoint {
     @Inject
     InteractiveQueries interactiveQueries;
 
-    /*@ConfigProperty(name = "quarkus.http.ssl-port")
-    int sslPort;*/
-
     @GET
     @Path("/all-time/top/{count}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -57,13 +54,4 @@ public class WordCloudEndpoint {
     public List<PipelineMetadata> getMetaData() {
         return interactiveQueries.getLatestMetaData();
     }
-
-    /*private URI getOtherUri(String host, int port, int id) {
-        try {
-            String scheme = (port == sslPort) ? "https" : "http";
-            return new URI(scheme + "://" + host + ":" + port + "/weather-stations/data/" + id);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
 }

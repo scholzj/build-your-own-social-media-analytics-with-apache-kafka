@@ -20,14 +20,14 @@ public class TwitterStatusSerde implements Serde<Status> {
         return new TwitterStatusDeserializer();
     }
 
-    class TwitterStatusSerializer implements Serializer<Status> {
+    static class TwitterStatusSerializer implements Serializer<Status> {
         @Override
         public byte[] serialize(String topic, Status data) {
             return TwitterObjectFactory.getRawJSON(data).getBytes(StandardCharsets.UTF_8);
         }
     }
 
-    class TwitterStatusDeserializer implements Deserializer<Status> {
+    static class TwitterStatusDeserializer implements Deserializer<Status> {
         @Override
         public Status deserialize(String topic, byte[] data) {
             try {

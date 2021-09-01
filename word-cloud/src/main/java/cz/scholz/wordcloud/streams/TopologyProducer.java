@@ -1,7 +1,5 @@
 package cz.scholz.wordcloud.streams;
 
-import io.quarkus.kafka.client.serialization.ObjectMapperSerde;
-import cz.scholz.wordcloud.model.TimelineKey;
 import cz.scholz.wordcloud.model.TwitterStatusSerde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -24,8 +22,9 @@ import java.util.List;
 
 @ApplicationScoped
 public class TopologyProducer {
-    static final List<String> IGNORED_WORDS = List.of("https");
-    static final String TWEETS_TOPIC = "scholzj-timeline";
+    static final List<String> IGNORED_WORDS = List.of("about", "then", "than", "this", "from", "with", "been", "more", "your",
+            "should", "it's", "i've", "have", "will", "here");
+
     static final String WORD_CLOUD_STORE = "word-cloud-store";
     static final String LATEST_WORD_CLOUD_STORE = "latest-word-cloud-store";
 
@@ -35,11 +34,9 @@ public class TopologyProducer {
     @Produces
     public Topology buildTopology() {
         final TwitterStatusSerde twitterStatusSerde = new TwitterStatusSerde();
-        //final ObjectMapperSerde<Status> twitterStatusSerde = new ObjectMapperSerde<>(Status.class);
-        final ObjectMapperSerde<TimelineKey> timelineKeySerde = new ObjectMapperSerde<>(TimelineKey.class);
         final KeyValueBytesStoreSupplier storeSupplier = Stores.persistentKeyValueStore(WORD_CLOUD_STORE);
         final KeyValueBytesStoreSupplier latestStoreSupplier = Stores.persistentKeyValueStore(LATEST_WORD_CLOUD_STORE);
-        //final WindowBytesStoreSupplier latestStoreSupplier = Stores.persistentTimestampedWindowStore(WINDOWED_WORD_CLOUD_STORE, Duration.ofDays(1), Duration.ofHours(1), false);
+
         final StreamsBuilder builder = new StreamsBuilder();
 
         final KGroupedStream<String, String> groupedByWord = builder.stream(tweetsTopic, Consumed.with(Serdes.ByteArray(), twitterStatusSerde))
@@ -47,14 +44,20 @@ public class TopologyProducer {
                     if (value.isRetweet())  {
                         return List.of(value.getRetweetedStatus().getText());
                     } else if (value.getQuotedStatus() != null) {
-                        return List.of(value.getRetweetedStatus().getText(), value.getText());
+                        return List.of(value.getQuotedStatus().getText(), value.getText());
                     } else {
                         return List.of(value.getText());
                     }
                 })
-                .flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
-                .filter((key, value) -> value.length() > 4 && !IGNORED_WORDS.contains(value))
-                //.groupBy((key, value) -> key.type + "@" + value);
+                .flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\s+")))
+                .filter((key, value) ->
+                        value.length() > 3 // Longer than 3 characters
+                                && !IGNORED_WORDS.contains(value) // Not on an ignored words list
+                                && !value.startsWith("http://") // Not an HTTP link
+                                && !value.startsWith("https://") // Not an HTTPS link
+                )
+                .mapValues(value -> stripSpecialCharacters(value))
+                .filter((key, value) -> !value.isEmpty())
                 .groupBy((key, value) -> value, Grouped.with(Serdes.String(), Serdes.String()));
 
         groupedByWord.count(Materialized.<String, Long>as(storeSupplier)
@@ -64,12 +67,7 @@ public class TopologyProducer {
         groupedByWord.windowedBy(TimeWindows.of(Duration.ofHours(1)).advanceBy(Duration.ofMinutes(1)).grace(Duration.ofMinutes(1)))
                 .count(Materialized.with(Serdes.String(), Serdes.Long()))
                 .suppress(Suppressed.untilWindowCloses(Suppressed.BufferConfig.unbounded()))
-                .toStream((key, value) -> {
-                    return key.key();
-                })
-                //.toStream()
-                //.groupBy((key, value) -> key.key(), Grouped.with(WindowedSerdes.timeWindowedSerdeFrom(String.class), Serdes.String()));
-                //.groupBy((key, value) -> key.key(), Grouped.with(Serdes.String(), Serdes.String()))
+                .toStream((key, value) -> key.key())
                 .groupByKey(Grouped.with(Serdes.String(), Serdes.Long()))
                 .aggregate(
                         () -> 0L,
@@ -78,10 +76,11 @@ public class TopologyProducer {
                                 .withKeySerde(Serdes.String())
                                 .withValueSerde(Serdes.Long())
                 );
-                /*.count(Materialized.<String, Long>as(latestStoreSupplier)
-                        .withKeySerde(Serdes.String())
-                        .withValueSerde(Serdes.Long()));*/
 
         return builder.build();
+    }
+
+    static String stripSpecialCharacters(String word)  {
+        return word.replaceAll("^\\W+", "").replaceAll("\\W+$", "");
     }
 }
