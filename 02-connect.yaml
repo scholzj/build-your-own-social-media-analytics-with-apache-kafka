@@ -83,7 +83,7 @@ spec:
         operation: Read
       - resource:
           type: topic
-          name: scholzj-timeline
+          name: twitter-timeline
         operation: Write
       - resource:
           type: topic
@@ -93,34 +93,6 @@ spec:
           type: topic
           name: avfc-search
         operation: Write
-      # - resource:
-      #     type: topic
-      #     name: telegram-topic
-      #   operation: Describe
-      # - resource:
-      #     type: topic
-      #     name: telegram-topic
-      #   operation: Write
-      # - resource:
-      #     type: topic
-      #     name: telegram-topic
-      #   operation: Create
-      # - resource:
-      #     type: topic
-      #     name: s3-topic
-      #   operation: Read
-      # - resource:
-      #     type: topic
-      #     name: s3-topic
-      #   operation: Describe
-      # - resource:
-      #     type: topic
-      #     name: s3-topic
-      #   operation: Write
-      # - resource:
-      #     type: topic
-      #     name: s3-topic
-      #   operation: Create
 ---
 
 ######################################################################
