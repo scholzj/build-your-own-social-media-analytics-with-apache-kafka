@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Tag Cloud</title>
+        <meta charset="utf-8">
+        <script src='webjars/echarts/echarts.min.js'></script>
+        <script src='echarts-wordcloud/echarts-wordcloud.min.js'></script>
+    </head>
+
+    <style>
+        html, body, #main {
+            width: 100%;
+            height: calc(100% - 50px);
+            margin: 0;
+        }
+
+        #links {
+            text-align: center;
+            height: 50px
+        }
+    </style>
+
+    <body>
+        <div id="links">
+            <strong>[All-Time]</strong>
+            <a href="./static.html">[All-Time (Static)]</a>
+            <a href="./latest.html">[Latest]</a>
+            <a href="./latest-static.html">[Latest (Static)]</a>
+        </div>
+
+        <div id='main'></div>
+
+        <script>
+            refreshData = async () => {
+                    const data = [];
+                    const response = await fetch('api/all-time/top/50/');
+                    const keywords = await response.json()
+                    
+                    for (const name in keywords) {
+                        data.push({
+                            name: name,
+                            value: Math.sqrt(keywords[name])
+                        })
+                    }
+                    
+                    option.series[0].data = data.sort(function (a, b) {
+                            return b.value  - a.value;
+                        })
+
+                    chart.setOption(option);
+                }
+
+            const chart = echarts.init(document.getElementById('main'));
+
+            const option = {
+                series: [ {
+                    type: 'wordCloud',
+                    sizeRange: [30, 300],
+                    rotationRange: [-90, 90],
+                    rotationStep: 45,
+                    gridSize: 2,
+                    shape: 'circle',
+                    drawOutOfBound: false,
+                    textStyle: {
+                        color: function () {
+                            return 'rgb(' + [
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160)
+                            ].join(',') + ')';
+                        }
+                    },
+                    emphasis: {
+                        textStyle: {
+                            color: 'red'
+                        }
+                    },
+                    data: []
+                } ]
+            };
+
+            setInterval(function() {
+                refreshData()
+            }, 60000);
+
+            refreshData()
+
+            window.onresize = function () {
+                chart.resize();
+            }
+        </script>
+    </body>
+</html>

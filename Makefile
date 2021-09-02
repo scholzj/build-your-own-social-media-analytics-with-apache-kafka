@@ -1,6 +1,6 @@
 RELEASE_VERSION ?= latest
 
-SUBDIRS=word-cloud
+SUBDIRS=word-cloud tag-cloud
 DOCKER_TARGETS=docker_build docker_push docker_tag
 
 all: $(SUBDIRS)
