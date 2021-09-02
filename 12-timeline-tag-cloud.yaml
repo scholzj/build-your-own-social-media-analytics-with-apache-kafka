@@ -1,0 +1,142 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: timeline-tag-cloud
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+    acls:
+      # Source topic
+      - resource:
+          type: topic
+          name: twitter-timeline
+        operation: Read
+      # Group used by the Kafka Streams app
+      - resource:
+          type: group
+          name: timeline-tag-cloud
+        operation: Read
+      # Streams topics
+      - resource:
+          type: topic
+          name: timeline-tag-cloud-
+          patternType: prefix
+        operation: Write
+      - resource:
+          type: topic
+          name: timeline-tag-cloud-
+          patternType: prefix
+        operation: Read
+      - resource:
+          type: topic
+          name: timeline-tag-cloud-
+          patternType: prefix
+        operation: Create
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: timeline-tag-cloud
+  name: timeline-tag-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: timeline-tag-cloud
+  template:
+    metadata:
+      labels:
+        app: timeline-tag-cloud
+    spec:
+      containers:
+        - name: timeline-tag-cloud
+          image: ghcr.io/scholzj/build-your-own-social-media-analytics-with-apache-kafka-tag-cloud:latest
+          env:
+            - name: QUARKUS_KAFKA_STREAMS_BOOTSTRAP_SERVERS
+              value: my-cluster-kafka-bootstrap:9093
+            - name: QUARKUS_KAFKA_STREAMS_APPLICATION_ID
+              value: timeline-tag-cloud
+            - name: QUARKUS_KAFKA_STREAMS_TOPICS
+              value: twitter-timeline
+            - name: QUARKUS_KAFKA_STREAMS_SECURITY_PROTOCOL
+              value: SSL
+            - name: QUARKUS_KAFKA_STREAMS_SSL_TRUSTSTORE_TYPE
+              value: PKCS12
+            - name: QUARKUS_KAFKA_STREAMS_SSL_TRUSTSTORE_LOCATION
+              value: /etc/truststore/ca.p12
+            - name: QUARKUS_KAFKA_STREAMS_SSL_TRUSTSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: my-cluster-cluster-ca-cert
+                  key: ca.password
+            - name: QUARKUS_KAFKA_STREAMS_SSL_KEYSTORE_TYPE
+              value: PKCS12
+            - name: QUARKUS_KAFKA_STREAMS_SSL_KEYSTORE_LOCATION
+              value: /etc/keystore/user.p12
+            - name: QUARKUS_KAFKA_STREAMS_SSL_KEYSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: timeline-tag-cloud
+                  key: user.password
+          volumeMounts:
+            - name: truststore
+              mountPath: "/etc/truststore"
+              readOnly: true
+            - name: keystore
+              mountPath: "/etc/keystore"
+              readOnly: true
+          ports:
+            - containerPort: 8080
+      volumes:
+        - name: truststore
+          secret:
+            secretName: my-cluster-cluster-ca-cert
+            items:
+              - key: ca.p12
+                path: ca.p12
+        - name: keystore
+          secret:
+            secretName: timeline-tag-cloud
+            items:
+              - key: user.p12
+                path: user.p12
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: timeline-tag-cloud
+spec:
+  selector:
+    app: timeline-tag-cloud
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: timeline-tag-cloud
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: social.p50
+      http:
+        paths:
+          - path: /timeline-tag-cloud(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: timeline-tag-cloud
+                port:
+                  number: 8080
