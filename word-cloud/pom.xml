@@ -47,11 +47,6 @@
       <artifactId>quarkus-kafka-streams</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.twitter4j</groupId>
-      <artifactId>twitter4j-core</artifactId>
-      <version>${twitter4j.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>echarts</artifactId>
       <version>${webjars-echarts.version}</version>
