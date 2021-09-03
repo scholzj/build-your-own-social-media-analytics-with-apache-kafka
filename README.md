@@ -47,7 +47,28 @@ You can also have a look at the [slides](https://docs.google.com/presentation/d/
 
 ## Analyzing our own Twitter timeline
 
-TODO
+1) Deploy the Camel Twitter Timeline connector
+   ```
+   kubectl apply -f 10-timeline.yaml
+   ```
+   That should create a topic `twitter-timeline` and start sending the twitter statuses to this topic.
+   You can use `kafkacat` to check them:
+   ```
+   kafkacat -C -b <brokerAddress> -o beginning -t twitter-timeline | jq .text
+   ```
+
+2) Deploy the Word Cloud and Tag Cloud applications:
+   ```
+   kubectl apply -f 11-timeline-word-cloud.yaml
+   kubectl apply -f 12-timeline-tag-cloud.yaml
+   ```
+   They create Ingress resources to be able to access their API and UI.
+   If needed, you might need to customize the Ingress or replace it with Route etc.
+   The source code for both applications is part of the repository.
+   You should see a word cloud similar to this:
+   ![Word Cloud](assets/word-cloud.png)
+
+
 
 ## Doing a sentiment analysis of a search result
 
