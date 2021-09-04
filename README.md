@@ -78,9 +78,9 @@ TODO
 
 TODO
 
-## Support commands
-
 ## Useful commands
+
+These commands might be useful when playing with the demo:
 
 ### Reseting the streams applications:
 
