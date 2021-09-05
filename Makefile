@@ -1,6 +1,6 @@
 RELEASE_VERSION ?= latest
 
-SUBDIRS=word-cloud tag-cloud
+SUBDIRS=word-cloud tag-cloud sentiment-analysis
 DOCKER_TARGETS=docker_build docker_push docker_tag
 
 all: $(SUBDIRS)

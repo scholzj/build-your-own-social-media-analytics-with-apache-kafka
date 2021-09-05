@@ -3,16 +3,16 @@
 # (E.g. cluster-controller etc.).
 #
 
-NATIVE_DOCKER_BUILD = ""
-
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
-	NATIVE_DOCKER_BUILD = "-Dquarkus.native.container-build=true"
+	NATIVE_BUILD ?= "-Pnative -Dquarkus.native.container-build=true"
+else
+	NATIVE_BUILD ?= "-Pnative"
 endif
 
 java_build:
 	echo "Building JAR file ..."
-	mvn package -Pnative $(NATIVE_DOCKER_BUILD)
+	mvn $(NATIVE_BUILD) package
 
 java_clean:
 	echo "Cleaning Maven build ..."
