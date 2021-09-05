@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: twitter-timeline
+  name: twitter-search
   labels:
     strimzi.io/cluster: my-cluster
 spec:
@@ -10,22 +10,20 @@ spec:
   config:
     retention.ms: 2629800000
     segment.bytes: 107374182
-    min.insync.replicas: 2
 ---
 
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnector
 metadata:
-  name: twitter-timeline
+  name: twitter-search
   labels:
     strimzi.io/cluster: my-connect
 spec:
-  class: CamelTwittertimelineSourceConnector
+  class: CamelTwittersearchSourceConnector
   tasksMax: 1
   config:
-    topics: twitter-timeline
-    camel.source.path.timelineType: home
-    camel.source.endpoint.delay: 300000
+    topics: twitter-search
+    camel.source.path.keywords: "#KVAKVA13"
     # Twitter account
     camel.source.endpoint.consumerKey: ${env:TWITTER_CONSUMER_KEY}
     camel.source.endpoint.consumerSecret: ${env:TWITTER_CONSUMER_SECRET}
@@ -33,7 +31,7 @@ spec:
     camel.source.endpoint.accessTokenSecret: ${env:TWITTER_ACCESS_TOKEN_SECRET}
     # Converting
     camel.source.marshal: json-jackson
-    key.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+    key.converter: org.apache.kafka.connect.storage.StringConverter
     value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
     key.converter.schemas.enable: false
     value.converter.schemas.enable: false
