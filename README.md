@@ -68,11 +68,39 @@ You can also have a look at the [slides](https://docs.google.com/presentation/d/
    You should see a word cloud similar to this:
    ![Word Cloud](assets/word-cloud.png)
 
-
-
 ## Doing a sentiment analysis of a search result
 
-TODO
+1) Deploy the Camel Twitter Search connector
+   ```
+   kubectl apply -f 20-search.yaml
+   ```
+   That should create a topic `twitter-search` and start sending the twitter statuses to this topic.
+   You can change the search term in the connector configuration (YAML file)
+   You can use `kafkacat` to check them:
+   ```
+   kafkacat -C -b <brokerAddress> -o beginning -t twitter-search | jq .text
+   ```
+
+2) Deploy the Camel Twitter DM connector
+   ```
+   kubectl apply -f 21-alerts.yaml
+   ```
+   That should create a topic `twitter-alerts` and consume it.
+   When a message is sent to this topic, it will be forwarded as a direct message to the account specified in `.spec.config` in `camel.sink.path.user`.
+   Update this to your Twitter screen name (username) before deploying the connector.
+   You can use `kafkacat` to check them:
+   ```
+   kafkacat -C -b <brokerAddress> -o beginning -t twitter-alerts | jq .text
+   ```
+
+3) Deploy the Sentiment Analysis applications:
+   ```
+   kubectl apply -f 22-sentiment-analysis.yaml
+   ```
+   It will read the tweets found by the search connector and do a sentiment analysis of them.
+   If they are positive or negative on more than 90%, it will forward them to the alert topic.
+   The DM connector will pick them up from this topic and send them as DMs to your Twitter account.
+   ![Sentiment Analysis](assets/sentiment-analysis.png)
 
 ## Doing ad-hoc analysis
 
