@@ -104,7 +104,10 @@ You can also have a look at the [slides](https://docs.google.com/presentation/d/
 
 ## Doing ad-hoc analysis
 
-TODO
+1) Open the `ad-hoc` project in an IDE.
+   Check out the source code and configure it in `./src/main/resources/application.properties`.
+   If you want, change the code to prepare a new experiment.
+   Once ready, run the code using `mvn quarkus:dev` and watch the output.
 
 ## Useful commands
 
