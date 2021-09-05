@@ -24,7 +24,7 @@ spec:
   config:
     topics: twitter-alerts
     # User to send the alert DM to
-    camel.sink.path.user: scholzj
+    camel.sink.path.user: "7246595"
     # Twitter account
     camel.sink.endpoint.consumerKey: ${env:TWITTER_CONSUMER_KEY}
     camel.sink.endpoint.consumerSecret: ${env:TWITTER_CONSUMER_SECRET}

@@ -23,7 +23,7 @@ spec:
   tasksMax: 1
   config:
     topics: twitter-search
-    camel.source.path.keywords: "#KVAKVA13"
+    camel.source.path.keywords: "#BYOSMA"
     # Twitter account
     camel.source.endpoint.consumerKey: ${env:TWITTER_CONSUMER_KEY}
     camel.source.endpoint.consumerSecret: ${env:TWITTER_CONSUMER_SECRET}
