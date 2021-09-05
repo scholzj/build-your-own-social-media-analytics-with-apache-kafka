@@ -87,12 +87,12 @@ spec:
         operation: Write
       - resource:
           type: topic
-          name: strimzi-search
+          name: twitter-search
         operation: Write
       - resource:
           type: topic
-          name: avfc-search
-        operation: Write
+          name: twitter-alerts
+        operation: Read
 ---
 
 ######################################################################
@@ -188,6 +188,11 @@ spec:
           - type: tgz
             url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-twitter-timeline-kafka-connector/0.10.0/camel-twitter-timeline-kafka-connector-0.10.0-package.tar.gz
             sha512sum: 4d452ea1dbab3466021f8c10e2d387682d524f8db453af94f3e701556cc5ead7af09915051cfe67dd54c7234530221b0b8a5b33fdc118fb85ee9ce8726f98981
+      - name: camel-twitter-directmessage
+        artifacts:
+          - type: tgz
+            url: https://repo1.maven.org/maven2/org/apache/camel/kafkaconnector/camel-twitter-directmessage-kafka-connector/0.10.0/camel-twitter-directmessage-kafka-connector-0.10.0-package.tar.gz
+            sha512sum: dce5bf2286d0ad8718f741829d3dcc10a8597c449e28f3a23093b65dc636c06e8980efbe07b1e7208374359dfd7ee50cff110c99dbcb40a5cc0d8010d7ba5e73
   externalConfiguration:
     env:
       - name: TWITTER_CONSUMER_KEY
