@@ -26,3 +26,4 @@ hs_err_pid*
 
 ## Files with real secrets which should not be committed
 00-*
+99-*
