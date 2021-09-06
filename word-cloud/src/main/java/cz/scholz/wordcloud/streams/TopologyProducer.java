@@ -27,7 +27,8 @@ public class TopologyProducer {
 
     static final List<String> IGNORED_WORDS = List.of("about", "then", "than", "this", "that", "from", "with", "been",
             "more", "your", "should", "it's", "i've", "have", "will", "here", "come", "some", "when", "that's", "what",
-            "like", "just", "they", "their", "many", "which");
+            "like", "just", "they", "their", "many", "which", "give", "them", "first", "today", "time", "last", "live",
+            "over", "going", "after", "look", "could", "back", "join", "next");
 
     static final String WORD_CLOUD_STORE = "word-cloud-store";
     static final String LATEST_WORD_CLOUD_STORE = "latest-word-cloud-store";
