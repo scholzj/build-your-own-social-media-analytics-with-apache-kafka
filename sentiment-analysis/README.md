@@ -1,7 +1,7 @@
 # Sentiment Analysis
 
 This project uses Quarkus, Kafka Streams and Deep Java Library to analyze sentiment of tweets received from Camel Kafka Connector.
-It reads tweets from one topic, decides whether they are _positive_ or _negative_ and if they are above 90%, it forwards them to another topic where they can be picked up by another appliction.
+It reads tweets from one topic, decides whether they are _positive_ or _negative_ and if they are above 90%, it forwards them to another topic where they can be picked up by another application.
 
 ## Build
 

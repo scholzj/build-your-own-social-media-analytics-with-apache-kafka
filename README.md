@@ -7,7 +7,7 @@ You can also have a look at the [slides](https://docs.google.com/presentation/d/
 
 1) Install the Strimzi operator.
    The demo is currently using Strimzi 0.25.0, but it should work also with newer versions.
-   If needed, follow the documentation at [strimzi.io](https://strimzi.io).
+   If needed, follow the documentation at [https://strimzi.io](https://strimzi.io).
 
 2) Create a Kubernetes Secret with credentials for your container registry.
    It should follow the usual Kubernetes format:
