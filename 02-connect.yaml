@@ -170,7 +170,7 @@ spec:
     output:
       type: docker
       # Update to match your own container repository
-      image: quay.io/scholzj/kafka-connect-build:latest
+      image: quay.io/scholzj/kafka-connect-build:byosma
       pushSecret: docker-credentials
     # Uncomment if you want to push the container image to the OpenShift built-in registry
     # If you use other namespace than myproject, you will also need to fix the name
