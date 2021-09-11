@@ -109,6 +109,11 @@ You can also have a look at the [slides](https://docs.google.com/presentation/d/
    If you want, change the code to prepare a new experiment.
    Once ready, run the code using `mvn quarkus:dev` and watch the output.
 
+## Other examples
+
+You can use also other examples and play with them.
+The files `90-kafka-search.yaml`, `91-strimzi-search.yaml`, and `92-avfc-search.yaml` contain some other example searches as well.
+
 ## Useful commands
 
 These commands might be useful when playing with the demo:

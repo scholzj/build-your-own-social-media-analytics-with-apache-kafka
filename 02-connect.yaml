@@ -93,6 +93,19 @@ spec:
           type: topic
           name: twitter-alerts
         operation: Read
+      # Topics for the other examples
+      - resource:
+          type: topic
+          name: kafka-search
+        operation: Write
+      - resource:
+          type: topic
+          name: strimzi-search
+        operation: Write
+      - resource:
+          type: topic
+          name: avfc-search
+        operation: Write
 ---
 
 ######################################################################
