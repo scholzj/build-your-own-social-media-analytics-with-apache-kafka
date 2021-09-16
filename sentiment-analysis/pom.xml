@@ -71,20 +71,6 @@
             <scope>runtime</scope>
             <version>1.8.1</version>
         </dependency>
-        <!--<dependency>
-            <groupId>ai.djl.pytorch</groupId>
-            <artifactId>pytorch-native-cpu</artifactId>
-            <classifier>osx-x86_64</classifier>
-            <scope>runtime</scope>
-            <version>1.8.1</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>ai.djl.pytorch</groupId>
-            <artifactId>pytorch-native-cpu</artifactId>
-            <classifier>win-x86_64</classifier>
-            <scope>runtime</scope>
-            <version>1.8.1</version>
-        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
