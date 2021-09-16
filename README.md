@@ -1,6 +1,6 @@
 # Build your own social media analytics with Apache Kafka
 
-This repository contains the demo for a conference call with the same name.
+This repository contains the demo for a conference talk with the same name.
 You can also have a look at the [slides](https://docs.google.com/presentation/d/18bmiZagwrAe8fnuuyBs45l1U5OHIGwK9pjLALpcC23E/edit?usp=sharing).
 
 ## Prerequisites
