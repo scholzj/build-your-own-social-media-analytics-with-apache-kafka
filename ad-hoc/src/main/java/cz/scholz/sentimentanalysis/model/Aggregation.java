@@ -41,8 +41,8 @@ public class Aggregation {
     }
 
     public Aggregation aggregate(Tweet tweet) {
-        if (tweet.hashtagEntities != null
-                && tweet.hashtagEntities.length > 0)    {
+        if (tweet.mediaEntities != null
+                && tweet.mediaEntities.length > 0)    {
             // Has media
             increaseWithMedia(tweet.getRetweetCount());
         } else {
