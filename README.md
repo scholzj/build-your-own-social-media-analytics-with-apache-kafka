@@ -37,12 +37,12 @@ You can also have a look at the [slides](https://docs.google.com/presentation/d/
 
 4) Deploy the Kafka cluster:
    ```
-   kubectl apply -f 01-kafka-yaml
+   kubectl apply -f 01-kafka.yaml
    ```
 
 5) Once Kafka cluster is ready, deploy the Kafka Connect cluster which will also download the Camel Kafka Connectors for Twitter
    ```
-   kubectl apply -f 02-connect-yaml
+   kubectl apply -f 02-connect.yaml
    ```
 
 ## Analyzing our own Twitter timeline
