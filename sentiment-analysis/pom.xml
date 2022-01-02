@@ -10,11 +10,12 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
-        <quarkus-plugin.version>2.1.4.Final</quarkus-plugin.version>
+        <quarkus-plugin.version>2.6.1.Final</quarkus-plugin.version>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>2.1.4.Final</quarkus.platform.version>
-        <twitter4j.version>4.0.7</twitter4j.version>
+        <quarkus.platform.version>2.6.1.Final</quarkus.platform.version>
+        <ai-djl.version>0.14.0</ai-djl.version>
+        <ai-djl-pytorch.version>1.9.1</ai-djl-pytorch.version>
         <webjars-echarts.version>5.1.2</webjars-echarts.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -46,22 +47,22 @@
         <dependency>
             <groupId>ai.djl</groupId>
             <artifactId>api</artifactId>
-            <version>0.12.0</version>
+            <version>${ai-djl.version}</version>
         </dependency>
         <dependency>
             <groupId>ai.djl</groupId>
             <artifactId>model-zoo</artifactId>
-            <version>0.12.0</version>
+            <version>${ai-djl.version}</version>
         </dependency>
         <dependency>
             <groupId>ai.djl.pytorch</groupId>
             <artifactId>pytorch-engine</artifactId>
-            <version>0.12.0</version>
+            <version>${ai-djl.version}</version>
         </dependency>
         <dependency>
             <groupId>ai.djl.pytorch</groupId>
             <artifactId>pytorch-model-zoo</artifactId>
-            <version>0.12.0</version>
+            <version>${ai-djl.version}</version>
         </dependency>
         <!-- Used the right platform -->
         <dependency>
@@ -69,7 +70,7 @@
             <artifactId>pytorch-native-cpu</artifactId>
             <classifier>linux-x86_64</classifier>
             <scope>runtime</scope>
-            <version>1.8.1</version>
+            <version>${ai-djl-pytorch.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
