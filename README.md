@@ -1,9 +1,6 @@
 # Build your own social media analytics with Apache Kafka
 
-This repository contains the demo for a conference talk from [DataCon LA 2021](https://www.dataconla.com/).
-You can also have a look at the [slides](https://docs.google.com/presentation/d/18bmiZagwrAe8fnuuyBs45l1U5OHIGwK9pjLALpcC23E/edit?usp=sharing) and the [recording](https://youtu.be/niQEglT_nYQ):
-
-[![Build your own social media analytics with Apache Kafka - DataCon LA 2021 recording](https://user-images.githubusercontent.com/5658439/135720151-cde6b04a-d006-4901-a089-487aaf32cac5.png)](http://www.youtube.com/watch?v=niQEglT_nYQ "Build your own social media analytics with Apache Kafka - DataCon LA 2021 recording")
+This repository contains the demo files and applications for my conference talk _Build your own social media analytics with Apache Kafka_.
 
 ## Prerequisites
 
@@ -145,3 +142,12 @@ You can also pipe the output to `jq` to pretty-print the JSON and use `jq` to fo
 ```
 kafkacat -G <groupId> -C -b <brokerAddress> -o beginning -t <topic> | jq .text
 ```
+
+## Recordings
+
+### DataCon LA 2021
+
+This talk was presented at [DataCon LA 2021](https://www.dataconla.com/).
+You can have a look at the [slides](https://docs.google.com/presentation/d/18bmiZagwrAe8fnuuyBs45l1U5OHIGwK9pjLALpcC23E/edit?usp=sharing) and the [recording](https://youtu.be/niQEglT_nYQ) from the conference here:
+
+[![Build your own social media analytics with Apache Kafka - DataCon LA 2021 recording](https://user-images.githubusercontent.com/5658439/135720151-cde6b04a-d006-4901-a089-487aaf32cac5.png)](http://www.youtube.com/watch?v=niQEglT_nYQ "Build your own social media analytics with Apache Kafka - DataCon LA 2021 recording")
