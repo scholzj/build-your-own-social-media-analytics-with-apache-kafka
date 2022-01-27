@@ -5,7 +5,7 @@ This repository contains the demo files and applications for my conference talk 
 ## Prerequisites
 
 1) Install the Strimzi operator.
-   The demo is currently using Strimzi 0.25.0, but it should work also with newer versions.
+   The demo is currently using Strimzi 0.27.1, but it should work also with newer versions.
    If needed, follow the documentation at [https://strimzi.io](https://strimzi.io).
 
 2) Create a Kubernetes Secret with credentials for your container registry.
