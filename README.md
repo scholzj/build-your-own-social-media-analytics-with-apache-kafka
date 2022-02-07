@@ -145,6 +145,13 @@ kafkacat -G <groupId> -C -b <brokerAddress> -o beginning -t <topic> | jq .text
 
 ## Recordings
 
+### DevConf.CZ 2022
+
+This talk was presented at [DevConf.CZ 2022](https://devconf.cz/).
+You can have a look at the [slides](https://docs.google.com/presentation/d/1vW_oTDelloUPyTkbDLiNluZXIi5t0wfFWSIDnKapESc/edit?usp=sharing) and the [recording](https://youtu.be/bTxdZOWLyvI) from the conference here:
+
+[![Build your own social media analytics with Apache Kafka - DataCon LA 2021 recording](https://user-images.githubusercontent.com/5658439/152701013-8c18f4fa-18fe-4d5c-a838-10006446a3ab.png)](https://youtu.be/bTxdZOWLyvI "Build your own social media analytics with Apache Kafka - DevConf.CZ 2022 recording")
+
 ### DataCon LA 2021
 
 This talk was presented at [DataCon LA 2021](https://www.dataconla.com/).
