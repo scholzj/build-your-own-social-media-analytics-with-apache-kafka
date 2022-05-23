@@ -76,6 +76,9 @@ spec:
     jvmOptions:
       -Xms: 512m
       -Xmx: 512m
+      javaSystemProperties:
+        - name: zookeeper.electionPortBindRetry
+          value: "0"
     storage:
       type: persistent-claim
       size: 100Gi

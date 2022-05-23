@@ -3,7 +3,6 @@ package cz.scholz.wordcloud.streams;
 import java.util.Set;
 
 public class PipelineMetadata {
-
     public String host;
     public Set<String> partitions;
 

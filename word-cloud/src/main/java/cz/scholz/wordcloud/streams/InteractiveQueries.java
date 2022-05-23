@@ -71,7 +71,7 @@ public class InteractiveQueries {
     }
 
     private List<PipelineMetadata> getMetaData(String storeName) {
-        return streams.allMetadataForStore(storeName)
+        return streams.streamsMetadataForStore(storeName)
                 .stream()
                 .map(m -> new PipelineMetadata(
                         m.hostInfo().host() + ":" + m.hostInfo().port(),

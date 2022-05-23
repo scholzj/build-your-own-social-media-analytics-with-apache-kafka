@@ -56,7 +56,7 @@ public class TopologyProducer {
                         .withKeySerde(Serdes.String())
                         .withValueSerde(Serdes.Long()));
 
-        groupedByWord.windowedBy(TimeWindows.of(Duration.ofDays(1)).advanceBy(Duration.ofMinutes(15)).grace(Duration.ofMinutes(0)))
+        groupedByWord.windowedBy(TimeWindows.ofSizeAndGrace(Duration.ofDays(1), Duration.ofMinutes(0)).advanceBy(Duration.ofMinutes(15)))
                 .count(Materialized.with(Serdes.String(), Serdes.Long()))
                 .suppress(Suppressed.untilWindowCloses(Suppressed.BufferConfig.unbounded()))
                 .toStream((key, value) -> key.key())

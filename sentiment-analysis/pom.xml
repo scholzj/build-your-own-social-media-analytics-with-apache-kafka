@@ -10,13 +10,12 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
-        <quarkus-plugin.version>2.6.1.Final</quarkus-plugin.version>
+        <quarkus-plugin.version>2.9.1.Final</quarkus-plugin.version>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>2.6.1.Final</quarkus.platform.version>
-        <ai-djl.version>0.14.0</ai-djl.version>
-        <ai-djl-pytorch.version>1.9.1</ai-djl-pytorch.version>
-        <webjars-echarts.version>5.1.2</webjars-echarts.version>
+        <quarkus.platform.version>2.9.1.Final</quarkus.platform.version>
+        <ai-djl.version>0.16.0</ai-djl.version>
+        <ai-djl-pytorch.version>1.10.0</ai-djl-pytorch.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
