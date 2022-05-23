@@ -5,7 +5,7 @@ This repository contains the demo files and applications for my conference talk 
 ## Prerequisites
 
 1) Install the Strimzi operator.
-   The demo is currently using Strimzi 0.27.1, but it should work also with newer versions.
+   The demo is currently using Strimzi 0.29.0, but it should work also with newer versions.
    If needed, follow the documentation at [https://strimzi.io](https://strimzi.io).
 
 2) Create a Kubernetes Secret with credentials for your container registry.
@@ -81,13 +81,13 @@ This repository contains the demo files and applications for my conference talk 
    kafkacat -C -b <brokerAddress> -o beginning -t twitter-search | jq .text
    ```
 
-2) Deploy the Camel Twitter DM connector
+2) Deploy the Camel Twitter Timeline connector
    ```
    kubectl apply -f 21-alerts.yaml
    ```
    That should create a topic `twitter-alerts` and consume it.
-   When a message is sent to this topic, it will be forwarded as a direct message to the account specified in `.spec.config` in `camel.sink.path.user`.
-   Update this to your Twitter screen name (username) before deploying the connector.
+   When a message is sent to this topic, it will be published to your timeline as a retweet.
+   As an alternative, you can also uncomment the Camel Twitter DM connector and instead of your timeline send it as a direct message to the account specified in `.spec.config` in `camel.sink.path.user` (Update this to your Twitter screen name (username) before deploying the connector).
    You can use `kafkacat` to check them:
    ```
    kafkacat -C -b <brokerAddress> -o beginning -t twitter-alerts | jq .text
@@ -99,7 +99,7 @@ This repository contains the demo files and applications for my conference talk 
    ```
    Now you can test the sentiment analysis by sending tweets with the hashtag specified in `.camel.source.path.keywords: "#YOURHASHTAG"`. It will read the tweets found by the search connector and do a sentiment analysis of them.
    If they are positive or negative on more than 90%, it will forward them to the alert topic.
-   The DM connector will pick them up from this topic and send them as DMs to your Twitter account.
+   The connector will pick them up from this topic and send them as re-tweets on your Twitter account.
    ![Sentiment Analysis](assets/sentiment-analysis.png)
 
 ## Doing ad-hoc analysis

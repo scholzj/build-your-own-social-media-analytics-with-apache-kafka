@@ -194,18 +194,19 @@ spec:
       - name: camel-twitter-search
         artifacts:
           - type: tgz
-            url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-twitter-search-kafka-connector/0.11.0/camel-twitter-search-kafka-connector-0.11.0-package.tar.gz
-            sha512sum: af92f529d77f25dcaf617c8f5c100d1fbcf6668c26f926851f6f265dd2f6a5d50a50ac87847b58ea317ed515bf608f5806a1756e5cba444fbd43b531e366050e
+            url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-twitter-search-kafka-connector/0.11.5/camel-twitter-search-kafka-connector-0.11.5-package.tar.gz
+            sha512sum: 24e2cf9c8c11193a88a3750e41c600091c102e60b0cb206b2ca6df79118bdbb7a041caccc620673f5ade0acf4cdeb221ffe514534f1e954eeea68055e6633954
       - name: camel-twitter-timeline
         artifacts:
           - type: tgz
-            url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-twitter-timeline-kafka-connector/0.11.0/camel-twitter-timeline-kafka-connector-0.11.0-package.tar.gz
-            sha512sum: ec3d978f167a21f7276388215daa62e04ab3d1221daf8ef3105e03fd5434b1c47000820cbaf19ddc76d68b0450b2c74fff97998c9f88746df0521c8a99a92388
-      - name: camel-twitter-directmessage
+            url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-twitter-timeline-kafka-connector/0.11.5/camel-twitter-timeline-kafka-connector-0.11.5-package.tar.gz
+            sha512sum: 92dadfdc144dd6b88a220b953facb7e0c5cd5752c04a4d84e358a4dac02323f058f05eedb53b30de8b04c47f0a66b175d6a59c35b78f86bab7d8430255716a1a
+      # Can be used to send the Direct messages instead of sending tweets to your timeline
+      - name: camel-twitter-direct-messages
         artifacts:
           - type: tgz
-            url: https://repo1.maven.org/maven2/org/apache/camel/kafkaconnector/camel-twitter-directmessage-kafka-connector/0.11.0/camel-twitter-directmessage-kafka-connector-0.11.0-package.tar.gz
-            sha512sum: 5bc6543eba06183bf69422d0a82a809542a60beccb9bd4a73412165b4896861053f48f830bd8b72f68fc9a64c4dc7c4810f65f18b1de3ba1ba8ac8e05c9d7d3d
+            url: https://repo.maven.apache.org/maven2/org/apache/camel/kafkaconnector/camel-twitter-directmessage-kafka-connector/0.11.5/camel-twitter-directmessage-kafka-connector-0.11.5-package.tar.gz
+            sha512sum: c58fa4772c3fcc7347b17b080de719f7662cb0fee25046d2599a85de062ce7ba2456a8b85081d2bac893861022afdeb8f16023366a9e1b872084e2fd447f7b6d
   externalConfiguration:
     env:
       - name: TWITTER_CONSUMER_KEY
@@ -228,6 +229,26 @@ spec:
           secretKeyRef:
             name: twitter-credentials
             key: accessTokenSecret
+      - name: TWITTER2_CONSUMER_KEY
+        valueFrom:
+          secretKeyRef:
+            name: twitter-credentials
+            key: consumerKey2
+      - name: TWITTER2_CONSUMER_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: twitter-credentials
+            key: consumerSecret2
+      - name: TWITTER2_ACCESS_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: twitter-credentials
+            key: accessToken2
+      - name: TWITTER2_ACCESS_TOKEN_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: twitter-credentials
+            key: accessTokenSecret2
 ---
 
 kind: ConfigMap

@@ -19,19 +19,44 @@ metadata:
   labels:
     strimzi.io/cluster: my-connect
 spec:
-  class: CamelTwitterdirectmessageSinkConnector
+  class: CamelTwittertimelineSinkConnector
   tasksMax: 1
   config:
     topics: twitter-alerts
-    # User to send the alert DM to
-    camel.sink.path.user: "7246595"
+    camel.sink.path.timelineType: user
     # Twitter account
-    camel.sink.endpoint.consumerKey: ${env:TWITTER_CONSUMER_KEY}
-    camel.sink.endpoint.consumerSecret: ${env:TWITTER_CONSUMER_SECRET}
-    camel.sink.endpoint.accessToken: ${env:TWITTER_ACCESS_TOKEN}
-    camel.sink.endpoint.accessTokenSecret: ${env:TWITTER_ACCESS_TOKEN_SECRET}
+    camel.sink.endpoint.consumerKey: ${env:TWITTER2_CONSUMER_KEY}
+    camel.sink.endpoint.consumerSecret: ${env:TWITTER2_CONSUMER_SECRET}
+    camel.sink.endpoint.accessToken: ${env:TWITTER2_ACCESS_TOKEN}
+    camel.sink.endpoint.accessTokenSecret: ${env:TWITTER2_ACCESS_TOKEN_SECRET}
     # Converting
     key.converter: org.apache.kafka.connect.storage.StringConverter
     value.converter: org.apache.kafka.connect.storage.StringConverter
     key.converter.schemas.enable: false
     value.converter.schemas.enable: false
+---
+
+# Can be used to send the alerts as direct messages instead of sending it as re-tweets to the timeline
+# apiVersion: kafka.strimzi.io/v1beta2
+# kind: KafkaConnector
+# metadata:
+#   name: twitter-alerts
+#   labels:
+#     strimzi.io/cluster: my-connect
+# spec:
+#   class: CamelTwitterdirectmessageSinkConnector
+#   tasksMax: 1
+#   config:
+#     topics: twitter-alerts
+#     # User to send the alert DM to
+#     camel.sink.path.user: "7246595"
+#     # Twitter account
+#     camel.sink.endpoint.consumerKey: ${env:TWITTER_CONSUMER_KEY}
+#     camel.sink.endpoint.consumerSecret: ${env:TWITTER_CONSUMER_SECRET}
+#     camel.sink.endpoint.accessToken: ${env:TWITTER_ACCESS_TOKEN}
+#     camel.sink.endpoint.accessTokenSecret: ${env:TWITTER_ACCESS_TOKEN_SECRET}
+#     # Converting
+#     key.converter: org.apache.kafka.connect.storage.StringConverter
+#     value.converter: org.apache.kafka.connect.storage.StringConverter
+#     key.converter.schemas.enable: false
+#     value.converter.schemas.enable: false
