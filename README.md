@@ -100,6 +100,7 @@ This repository contains the demo files and applications for my conference talk 
    Now you can test the sentiment analysis by sending tweets with the hashtag specified in `.camel.source.path.keywords: "#YOURHASHTAG"`. It will read the tweets found by the search connector and do a sentiment analysis of them.
    If they are positive or negative on more than 90%, it will forward them to the alert topic.
    The connector will pick them up from this topic and send them as re-tweets on your Twitter account.
+   
    ![Sentiment Analysis](assets/sentiment-analysis.png)
 
 ## Doing ad-hoc analysis
