@@ -30,11 +30,6 @@ public class InteractiveQueries {
         return getHighestN(count, TopologyProducer.TAG_CLOUD_STORE);
     }
 
-    public Map<String, Long> getLatestHighest(int count)   {
-        LOG.infov("Finding latest top {0} words", count);
-        return getHighestN(count, TopologyProducer.LATEST_TAG_CLOUD_STORE);
-    }
-
     private Map<String, Long> getHighestN(int count, String storeName)    {
         //noinspection ComparatorMethodParameterNotUsed
         TreeSet<KeyValue<String, Long>> topResults = new TreeSet<>((w1, w2) -> w1.value > w2.value ?  1 : -1);
@@ -64,10 +59,6 @@ public class InteractiveQueries {
 
     public List<PipelineMetadata> getAllTimeMetaData() {
         return getMetaData(TopologyProducer.TAG_CLOUD_STORE);
-    }
-
-    public List<PipelineMetadata> getLatestMetaData() {
-        return getMetaData(TopologyProducer.LATEST_TAG_CLOUD_STORE);
     }
 
     private List<PipelineMetadata> getMetaData(String storeName) {

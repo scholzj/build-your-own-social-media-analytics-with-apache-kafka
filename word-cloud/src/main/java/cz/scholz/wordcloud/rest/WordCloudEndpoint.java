@@ -37,21 +37,4 @@ public class WordCloudEndpoint {
     public List<PipelineMetadata> getAllTimeMetaData() {
         return interactiveQueries.getAllTimeMetaData();
     }
-
-    @GET
-    @Path("/latest/top/{count}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getLatestTopWords(@PathParam("count") int count) {
-        Map<String, Long> result = interactiveQueries.getLatestHighest(count);
-
-        return Response.ok(result).build();
-    }
-
-    @GET
-    @Path("/latest/meta-data")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<PipelineMetadata> getMetaData() {
-        return interactiveQueries.getLatestMetaData();
-    }
 }

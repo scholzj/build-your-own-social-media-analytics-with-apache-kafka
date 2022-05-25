@@ -1,13 +1,5 @@
 package cz.scholz.wordcloud.streams;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
@@ -17,6 +9,13 @@ import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.jboss.logging.Logger;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class InteractiveQueries {
@@ -28,11 +27,6 @@ public class InteractiveQueries {
     public Map<String, Long> getAllTimeHighest(int count)   {
         LOG.infov("Finding all-time top {0} words", count);
         return getHighestN(count, TopologyProducer.WORD_CLOUD_STORE);
-    }
-
-    public Map<String, Long> getLatestHighest(int count)   {
-        LOG.infov("Finding latest top {0} words", count);
-        return getHighestN(count, TopologyProducer.LATEST_WORD_CLOUD_STORE);
     }
 
     private Map<String, Long> getHighestN(int count, String storeName)    {
@@ -49,6 +43,8 @@ public class InteractiveQueries {
             }
         }
 
+        all.close();
+
         return topResults.stream().collect(Collectors.toMap(keyValue -> keyValue.key, keyValue -> keyValue.value));
     }
 
@@ -64,10 +60,6 @@ public class InteractiveQueries {
 
     public List<PipelineMetadata> getAllTimeMetaData() {
         return getMetaData(TopologyProducer.WORD_CLOUD_STORE);
-    }
-
-    public List<PipelineMetadata> getLatestMetaData() {
-        return getMetaData(TopologyProducer.LATEST_WORD_CLOUD_STORE);
     }
 
     private List<PipelineMetadata> getMetaData(String storeName) {
