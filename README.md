@@ -2,6 +2,10 @@
 
 This repository contains the demo files and applications for my conference talk _Build your own social media analytics with Apache Kafka_.
 
+## Slides
+
+The slides form the talk can be found on [Google Slides](https://docs.google.com/presentation/d/1lkwdoh6Dqzcj1pWPkRkzuKjy7ie7B2Pfm9D3UaIwiFg/edit?usp=sharing).
+
 ## Prerequisites
 
 1) Install the Strimzi operator.
