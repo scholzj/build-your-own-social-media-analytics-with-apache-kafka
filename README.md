@@ -4,7 +4,7 @@ This repository contains the demo files and applications for my conference talk 
 
 ## Slides
 
-The slides form the talk can be found on [Google Slides](https://docs.google.com/presentation/d/1lkwdoh6Dqzcj1pWPkRkzuKjy7ie7B2Pfm9D3UaIwiFg/edit?usp=sharing).
+The slides form the talk can be found on [Google Slides](https://docs.google.com/presentation/d/1Jb6KNpFTFygWxapPYSnBqQswkND1PEIt84RV2Kds83k/edit?usp=sharing).
 
 ## Prerequisites
 
@@ -149,7 +149,12 @@ You can also pipe the output to `jq` to pretty-print the JSON and use `jq` to fo
 kafkacat -G <groupId> -C -b <brokerAddress> -o beginning -t <topic> | jq .text
 ```
 
-## Recordings
+## Recordings & Slides
+
+### MakeIT 2022
+
+This talk was presented at [MakeIT 2022](https://makeit.si/) in-person conference.
+There is no recording, but you can have a look at the [slides](https://docs.google.com/presentation/d/1lkwdoh6Dqzcj1pWPkRkzuKjy7ie7B2Pfm9D3UaIwiFg/edit?usp=sharing).
 
 ### DevConf.CZ 2022
 
