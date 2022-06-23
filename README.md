@@ -151,6 +151,11 @@ kafkacat -G <groupId> -C -b <brokerAddress> -o beginning -t <topic> | jq .text
 
 ## Recordings & Slides
 
+### DoK Meetup
+
+This talk was done at [DoK (Data on Kubernetes) Community](https://dok.community/) meetup.
+You can watch the recording on [YouTube](https://youtu.be/0-iuTh8fSCM).
+
 ### MakeIT 2022
 
 This talk was presented at [MakeIT 2022](https://makeit.si/) in-person conference.
