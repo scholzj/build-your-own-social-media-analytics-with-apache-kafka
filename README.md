@@ -155,6 +155,9 @@ kafkacat -G <groupId> -C -b <brokerAddress> -o beginning -t <topic> | jq .text
 
 This talk was done at [DoK (Data on Kubernetes) Community](https://dok.community/) meetup.
 You can watch the recording on [YouTube](https://youtu.be/0-iuTh8fSCM).
+Or you can also listen to it as a [podcast](https://anchor.fm/dokcommunity/episodes/DoK-Talks-138---Build-your-own-social-media-analytics-with-Apache-Kafka--Jakub-Scholz-e1kcmka).
+
+<img width="1920" alt="Kubernetes-JakubScholz" src="https://user-images.githubusercontent.com/5658439/175557680-bf3afb96-e463-4618-8fe4-40fc22b5bd94.png">
 
 ### MakeIT 2022
 
